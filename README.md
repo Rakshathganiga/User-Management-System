@@ -9,6 +9,7 @@ This is a simple CRUD (Create, Read, Update, Delete) User Management System buil
 Features:
 
 Add a new User (add)
+
 View details of all users (fetchall)
 
 Delete a user details by user id (delete)
