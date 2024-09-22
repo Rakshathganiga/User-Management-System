@@ -6,35 +6,23 @@ This is a simple CRUD (Create, Read, Update, Delete) User Management System buil
 
 
 Features:
-
 Add a new User (add)
-
 View details of all users (fetchall)
-
 Delete a user details by user id (delete)
-
 Delete all users (deleteall)
 
 
 Tech Stack:
-
 Frontend: HTML, CSS, JavaScript
-
 Backend: Node.js
-
 Database: MySQL
 
 
 Getting Started:
-
 -> Clone the repository.
-
 -> Install dependencies.
-
 -> Set up your database and environment variables.
-
 -> Run the application locally.
-
 
 
 Contributing:
