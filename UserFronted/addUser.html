@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Register </title>
+    <style>
+        .register {
+            margin: 20px;
+        }
+
+        button{
+            margin: 10px;
+            color: darkmagenta;
+            background-color: cornsilk;
+        }
+
+        div, button{
+            background-color: beige;
+            color: rgb(0, 140, 255);
+            
+        }
+        div{
+            padding: 10px;
+        }
+        
+        label{
+            color: black;
+            font-style: italic;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="register">
+        <h1> New User Registration </h1>
+        <form id="userForm">
+            <label for="name"> Name :</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email"> Email :</label>
+            <input type="text" id="email" name="email" required>
+            <label for="pass"> Password :</label>
+            <input type="text" id="pass" name="pass" required>
+            <label for="role"> Role :</label>
+            <input type="text" id="role" name="role" required>
+            <button type="submit"> Register </button>
+        </form>
+        <button onclick="window.location.href='homePage.html';">Back</button>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            // Collect form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
+            const role = document.getElementById('role').value;
+
+            // Send POST request
+            fetch('http://localhost:1234/home/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name : name,
+                    email : email,
+                    pass : pass,
+                    role : role
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Product added:', data);
+                alert(' Registered Successfully !');
+                // Optionally redirect to the product list page
+                window.location.href = 'fetchAllUser.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

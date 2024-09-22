@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Users List </title>
+    <style>
+
+        *{
+            margin: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            
+        }
+
+        h1{
+            color:blue;
+        }
+       
+        td{
+            color:rgb(149, 0, 255);
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: crimson;
+        }
+
+        button{
+            margin-top: 20px;
+            color: darkmagenta;
+            background-color: cornsilk;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Users List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be inserted here -->
+        </tbody>
+    </table>
+
+    <button onclick="window.location.href='homePage.html';">Back</button>
+
+    <script>
+        // Function to populate table with fetched data
+        function populateTable(data) {
+            const tableBody = document.querySelector('tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.email}</td>
+                    <td>${item.pass}</td>
+                    <td>${item.role}</td>
+
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Fetch data from the API
+        function fetchData() {
+            fetch('http://localhost:1234/home/fetchall', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                populateTable(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Initial fetch to populate the table
+        fetchData();
+    </script>
+</body>
+</html>

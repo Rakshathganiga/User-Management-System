@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Delete User </title>
+
+    <style>
+        .delete{
+            margin: 20px;
+            background-color: darkseagreen;
+            padding: 20px;
+        }
+
+        button{
+            margin: 10px;
+            color: rgb(1, 141, 255);
+            background-color: cornsilk;
+        }
+
+        #deleteForm button{
+            color: rgb(255, 0, 0);
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="delete">
+        <h1> Delete User by ID </h1>
+
+        <form id="deleteForm">
+          <label for="id">Enter ID :</label>
+          <input type="number" id="id" name="id" required >
+         <button type="submit">Delete User</button>
+        </form>
+        <button onclick="window.location.href='fetchAllUser.html';">Back</button>
+    </div>
+
+    <script>
+
+        // Handle form submission
+        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting the traditional way
+
+        // Get the book ID from the form
+        const id = document.getElementById('id').value;
+
+        // Send DELETE request to delete the book
+        fetch(`http://localhost:1234/home/delete/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('User deleted:');
+                alert('User deleted successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        
+    </script>
+
+
+</body>
+</html>

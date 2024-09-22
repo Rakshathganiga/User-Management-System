@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete All Users </title>
+
+    <style>
+        *{
+            margin: 10px;
+        }
+
+        div{
+            padding: 30px 30px 30px 30px;
+
+        }
+        .deleteAll{
+            background-color: azure;
+        }
+
+        label{
+            font-size: 30px;
+        }
+
+        #deleteAll button{
+            background-color: antiquewhite;
+            color: fuchsia;
+
+        }
+
+        div button{
+            background-color: bisque;
+            color: blue;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="deleteAll">
+        <form id="deleteAll">
+            <label for="">Are You Sure ?</label>
+            <button type="submit" class="btn btn-danger">Confirm</button>
+        </form>
+
+        <button onclick="window.location.href='homePage.html';">Back</button>
+
+    </div>
+
+    
+    <script>
+
+        document.getElementById('deleteAll').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+        fetch('http://localhost:1234/home/deleteall', {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json',
+            }
+        })
+        .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+        })
+        .then(data => {
+            console.log('All Users deleted:', data);
+            alert('All Users deleted successfully!');
+        })
+        .catch(error => {
+           console.error('Error:', error);
+        });
+        
+    })
+        
+    </script>
+</body>
+</html>
